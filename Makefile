@@ -1,5 +1,5 @@
 #/***************************************************************************
-# Classification
+# ML-CLAS
 #
 # This plugin can be used to apply classification on agricultural fields
 #							 -------------------

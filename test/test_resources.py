@@ -31,7 +31,7 @@ class ClassificationDialogTest(unittest.TestCase):
 
     def test_icon_png(self):
         """Test we can click OK."""
-        path = ':/plugins/Classification/icon.png'
+        path = ':/plugins/ML-CLAS/icon.png'
         icon = QIcon(path)
         self.assertFalse(icon.isNull())
 

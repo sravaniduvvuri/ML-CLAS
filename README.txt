@@ -1,6 +1,6 @@
 Plugin Builder Results
 
-Your plugin Classification was created in:
+Your plugin ML-CLAS was created in:
     C:/Users/sklm/Desktop/Uday/Classification/R studio files\classification
 
 Your QGIS plugin directory is located at:

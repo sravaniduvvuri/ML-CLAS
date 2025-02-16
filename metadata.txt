@@ -3,7 +3,7 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=Classification
+name=ML-CLAS
 qgisMinimumVersion=3.0
 description=This plugin can be used to apply classification on agricultural fields
 version=0.1

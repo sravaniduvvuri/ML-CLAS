@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Classification</string>
+   <string>ML-CLAS</string>
   </property>
   <widget class="QDialogButtonBox" name="button_box">
    <property name="geometry">
@@ -43,7 +43,7 @@
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
-     <string>DZETSAKA</string>
+     <string>RF_SVM</string>
     </attribute>
     <widget class="QLineEdit" name="leInputRaster">
      <property name="geometry">
