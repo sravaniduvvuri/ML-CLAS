@@ -185,6 +185,17 @@ class Classification:
     def select_input_rasters(self):
         filenames, _filter = QFileDialog.getOpenFileNames(self.dlg, "Select input raster files ","", '*.*')
         self.dlg.leInputRaster.setText(';'.join(filenames))
+        ### definition and calling function of set_coordinates() for these files
+        if filenames:
+            self.set_coordinates(filenames[0])
+
+    def set_coordinates(self,file):
+        lyr = QgsRasterLayer(file)
+        self.dlg.leMinX.setText(str(lyr.extent().xMinimum()))
+        self.dlg.leMinY.setText(str(lyr.extent().yMinimum()))
+        self.dlg.leMaxX.setText(str(lyr.extent().xMaximum()))
+        self.dlg.leMaxY.setText(str(lyr.extent().yMaximum()))
+        ###
 
     def select_input_vector(self):
         filename, _filter = QFileDialog.getOpenFileName(self.dlg, "Select input vector file ","", '*.*')
@@ -202,6 +213,10 @@ class Classification:
     def select_input_rasters_twdtw(self):
         filenames, _filter = QFileDialog.getOpenFileNames(self.dlg, "Select input raster files ","", '*.*')
         self.dlg.leInputRaster_twdtw.setText(';'.join(filenames))
+
+        ### calling function set_coordinates for TWDTW 
+        if filenames:
+            self.set_coordinates(filenames[0])
 
     def select_input_vector_twdtw(self):
         filename, _filter = QFileDialog.getOpenFileName(self.dlg, "Select input vector file ","", '*.*')
@@ -325,7 +340,7 @@ class Classification:
         
         merge_parameters = {
             "INPUT": processed_rasters,
-            "SEPARATE": True,
+            "SEPARATE": False,
             "NODATA_INPUT": 0,
             "NODATA_OUTPUT": 0,
             "OUTPUT": processed_raster_output,
@@ -573,9 +588,18 @@ class Classification:
             'OUTPUT_FOLDER': output_folder,
         }
         print("TWDTW started..")
-        processing.run("r:twdtw_classification", twdtw_parameters)
+        processing.run("r:Kharif_twdtw_classification", twdtw_parameters)
 
         print("TWDTW Completed.")
+
+    ### Qcombo algorithm selection drop down.
+    def on_algorithm_changed(self,text):
+        """Handle algorithm selection changes"""
+        if text in ["Support Vector Machine", "Random-Forest"]:
+            self.dlg.stackedWidget.setCurrentIndex(0)
+        elif text == "TWDTW":
+            self.dlg.stackedWidget.setCurrentIndex(1)
+
 
     def run(self):
         """Run method that performs all the real work"""
@@ -592,7 +616,8 @@ class Classification:
         if self.first_start == True:
             self.first_start = False
             self.dlg = ClassificationDialog()
-
+            self.dlg.cbAlgorithm.addItems(["Support Vector Machine", "Random-Forest","TWDTW"])   ## Added TWDTW as selection algorithm 
+            self.dlg.cbAlgorithm.currentTextChanged.connect(self.on_algorithm_changed)
             # DZETSAKA Inputs
             
             self.dlg.pbInputRaster.clicked.connect(self.select_input_rasters)   
@@ -600,7 +625,7 @@ class Classification:
             self.dlg.pbPoints.clicked.connect(self.select_train_points)
             self.dlg.pbOutput.clicked.connect(self.select_output_folder)
 
-            self.dlg.cbAlgorithm.addItems(["Support Vector Machine", "Random-Forest"])
+            #self.dlg.cbAlgorithm.addItems(["Support Vector Machine", "Random-Forest","TWDTW"])
 
             self.dlg.pbDzClassify.clicked.connect(self.classify_dzetsaka)
             self.dlg.helpButton.clicked.connect(self.openHelpTab)
@@ -617,6 +642,7 @@ class Classification:
             self.dlg.pbDzClassify_twdtw.clicked.connect(self.classify_twdtw)
             self.dlg.helpButton_twdtw.clicked.connect(self.openTWDTWHelpTab)
 
+            #self.set_coordinates()
         # show the dialog
         self.dlg.show()
         # Run the dialog event loop
@@ -625,4 +651,8 @@ class Classification:
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
-            pass
+            ### Added for coordinates box
+            minx = float(self.dlg.leMinX.text())
+            miny = float(self.dlg.leMinY.text())
+            maxx = float(self.dlg.leMaxX.text())
+            maxy = float(self.dlg.leMaxY.text())
