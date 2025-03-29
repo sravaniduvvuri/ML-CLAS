@@ -8,8 +8,8 @@
                               -------------------
         begin                : 2023-03-04
         git sha              : $Format:%H$
-        copyright            : (C) 2023 by Uday Kiran Jayanthi
-        email                : udaykiranjayanthi099@gmail.com
+        copyright            : (C) 2023 by Sravani Duvvuri
+        email                : sravanidvr@gmail.com
  ***************************************************************************/
 
 /***************************************************************************
@@ -588,7 +588,7 @@ class Classification:
             'OUTPUT_FOLDER': output_folder,
         }
         print("TWDTW started..")
-        processing.run("r:Kharif_twdtw_classification", twdtw_parameters)
+        processing.run("r:twdtw_classification", twdtw_parameters)
 
         print("TWDTW Completed.")
 
