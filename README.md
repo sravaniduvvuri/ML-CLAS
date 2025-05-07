@@ -1,4 +1,4 @@
-# ML-CLAS: An open-source, QGIS plug-in for crop classification in fragmented landscapes using SAR datasets
+## ML-CLAS: An open-source, QGIS plug-in for crop classification in fragmented landscapes using SAR datasets
 
 ![alt text](./ML-CLAS_Workflow.png)
 
